@@ -32,7 +32,6 @@ public class ViewProductActivity extends AppCompatActivity{
         Intent receivedIntent = getIntent();
 
         productId = receivedIntent.getIntExtra("id", -1);
-        toastHelper("int " + productId);
         productName = receivedIntent.getStringExtra("name");
 
         newProductName.setText(productName);

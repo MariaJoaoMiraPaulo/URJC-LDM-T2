@@ -3,13 +3,11 @@ package com.example.mariajoaomirapaulo.myshoppinglist;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.text.InputType;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
@@ -18,7 +16,6 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
-import java.util.Optional;
 
 public class ShoppingListActivity extends AppCompatActivity {
 
@@ -29,6 +26,7 @@ public class ShoppingListActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.shopping_list);
 
         databaseHelper = new AdminSQLiteOpenHelper(this, "products");
@@ -116,7 +114,6 @@ public class ShoppingListActivity extends AppCompatActivity {
                     productId = product.getInt(0);
                 }
                 viewProductIntent.putExtra("id", productId);
-                viewProductIntent.putExtra("id", product.getColumnIndex("id"));
                 viewProductIntent.putExtra("name", productName);
                 startActivity(viewProductIntent);
 
