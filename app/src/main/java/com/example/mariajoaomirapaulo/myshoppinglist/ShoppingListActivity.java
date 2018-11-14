@@ -1,25 +1,29 @@
 package com.example.mariajoaomirapaulo.myshoppinglist;
 
-import android.content.ContentValues;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.text.InputType;
+import android.util.Log;
 import android.view.View;
-import android.widget.ArrayAdapter;
+import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Optional;
 
-public class ShoppingListActivity extends AppCompatActivity{
+public class ShoppingListActivity extends AppCompatActivity {
 
-    ArrayAdapter<ProductItem> adapter;
-    ArrayList products = new ArrayList<ProductItem>();
+    AdminSQLiteOpenHelper databaseHelper;
+    ProductAdapter productAdapter;
     ListView listProducts;
 
     @Override
@@ -27,12 +31,14 @@ public class ShoppingListActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.shopping_list);
 
+        databaseHelper = new AdminSQLiteOpenHelper(this, "products");
+
+
         ImageButton addProduct = (ImageButton) findViewById(R.id.addIcon);
         listProducts = (ListView) findViewById(R.id.listProducts);
 
         populateProductList();
 
-        //add new product
         addProduct.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -42,7 +48,7 @@ public class ShoppingListActivity extends AppCompatActivity{
 
     }
 
-    public void openDialog(){
+    public void openDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("New Product");
 
@@ -54,8 +60,12 @@ public class ShoppingListActivity extends AppCompatActivity{
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 String productName = input.getText().toString();
-                ProductItem product = new ProductItem(productName);
-                addProduct(product);
+                if (productName.length() == 0) {
+                    toastHelper("You must specify the product name!");
+                } else {
+                    ProductItem product = new ProductItem(productName);
+                    addProduct(product);
+                }
             }
         });
         builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -69,26 +79,59 @@ public class ShoppingListActivity extends AppCompatActivity{
         builder.show();
     }
 
-    public void addProduct(ProductItem productItem){
-        AdminSQLiteOpenHelper admin = new AdminSQLiteOpenHelper(this, "gestion", null, 1);
-        SQLiteDatabase database = admin.getWritableDatabase();
+    public void addProduct(ProductItem product) {
+        boolean addProduct = databaseHelper.addProduct(product);
 
-        //add Product to database
+        if (addProduct) {
+            populateProductList();
+            toastHelper("Product successfully added!");
+        } else {
+            toastHelper("Something went wrong adding the product...");
+        }
+
     }
 
-    public void populateProductList(){
+    public void populateProductList() {
+        Cursor allProducts = databaseHelper.getAllProducts();
+        ArrayList<String> productsList = new ArrayList<>();
 
-        //testing list view To DELETE
+        while (allProducts.moveToNext()) {
+            productsList.add(allProducts.getString(1)); // column index to get from the table
+        }
 
-        ProductItem bread = new ProductItem("bread");
-        ProductItem book = new ProductItem("book");
-        products.add(bread);
-        products.add(book);
-
-
-        //get all products from database
-
-        ProductAdapter productAdapter = new ProductAdapter(ShoppingListActivity.this, products);
+        productAdapter = new ProductAdapter(ShoppingListActivity.this, productsList);
         listProducts.setAdapter(productAdapter);
+
+        //on item click listener
+        listProducts.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+                String productName = adapterView.getItemAtPosition(position).toString(); // Gets the clicked item
+
+
+                Intent viewProductIntent = new Intent(ShoppingListActivity.this, ViewProductActivity.class);
+                Cursor product = databaseHelper.getProductId(productName);
+                int productId = -1;
+                while (product.moveToNext()) {
+                    productId = product.getInt(0);
+                }
+                viewProductIntent.putExtra("id", productId);
+                viewProductIntent.putExtra("id", product.getColumnIndex("id"));
+                viewProductIntent.putExtra("name", productName);
+                startActivity(viewProductIntent);
+
+            }
+        });
+
+    }
+
+    private void toastHelper(String message) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        populateProductList();
     }
 }

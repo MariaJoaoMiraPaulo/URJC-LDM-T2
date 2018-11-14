@@ -13,9 +13,9 @@ import java.util.ArrayList;
 public class ProductAdapter extends BaseAdapter{
 
     private Activity context;
-    private ArrayList<ProductItem> list;
+    private ArrayList<String> list;
 
-    public ProductAdapter(Activity context, ArrayList<ProductItem> list) {
+    public ProductAdapter(Activity context, ArrayList<String> list) {
         this.context = context;
         this.list = list;
     }
@@ -42,10 +42,10 @@ public class ProductAdapter extends BaseAdapter{
             convertView = LayoutInflater.from(context).inflate(R.layout.listview_item, parent, false);
         }
 
-        ProductItem productItem = (ProductItem) getItem(position);
+        String productItem = (String) getItem(position);
         TextView name = (TextView) convertView.findViewById(R.id.productName);
 
-        name.setText(productItem.getName());
+        name.setText(productItem);
 
         return convertView;
     }

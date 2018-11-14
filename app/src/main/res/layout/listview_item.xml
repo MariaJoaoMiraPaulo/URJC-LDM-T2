@@ -7,7 +7,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="horizontal"
-        android:weightSum="100">
+        android:weightSum="100"
+        android:descendantFocusability="blocksDescendants">
 
         <TextView
             android:id="@+id/productName"
@@ -16,7 +17,10 @@
             android:layout_weight="90"
             android:padding="10dp"
             android:text="TextView"
-            android:textSize="20sp" />
+            android:textSize="20sp"
+            android:focusableInTouchMode="false"
+            android:clickable="false"
+            android:focusable="false"/>
 
         <CheckBox
             android:id="@+id/checkBox"
