@@ -28,6 +28,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="10"
             android:padding="10dp"
+            android:textColorLink="@color/colorLightGrey"
             android:textSize="20sp" />
 
     </LinearLayout>

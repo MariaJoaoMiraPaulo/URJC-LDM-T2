@@ -1,43 +1,66 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
     android:orientation="vertical"
     android:layout_height="match_parent">
 
     <EditText
-        android:textAlignment="center"
-        android:layout_width="match_parent"
+        android:id="@+id/newProductName"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:inputType="textPersonName"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="218dp"
         android:ems="10"
+        android:inputType="textPersonName"
+        android:textAlignment="center"
+        android:textColorLink="@color/colorPrimary" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="142dp"
+        android:weightSum="100">
+
+        <ImageButton
+            android:id="@+id/takePicture"
+            android:layout_width="56dp"
+            android:layout_height="60dp"
+            android:layout_weight="1"
+            android:background="@android:color/transparent"
+            app:srcCompat="@mipmap/camara_icon" />
+
+        <ImageButton
+            android:id="@+id/updateProduct"
+            android:layout_width="49dp"
+            android:layout_height="60dp"
+            android:layout_weight="1"
+            android:background="@android:color/transparent"
+            app:srcCompat="@mipmap/save_icon" />
+    </LinearLayout>
+
+    <ImageButton
+        android:id="@+id/deleteProduct"
+        android:layout_width="44dp"
+        android:layout_height="43dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginBottom="26dp"
+        android:layout_marginEnd="26dp"
+        android:background="@android:color/transparent"
+        app:srcCompat="@mipmap/trash_icon" />
+
+    <ImageView
+        android:id="@+id/imageProduct"
+        android:layout_width="193dp"
+        android:layout_height="172dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="78dp"
-        android:id="@+id/newProductName"/>
-
-        <LinearLayout
-            android:layout_centerHorizontal="true"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:weightSum="100"
-            android:layout_below="@+id/newProductName"
-        >
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="18dp"
-                android:text="DELETE"
-                android:id="@+id/deleteProduct"
-                />
-
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="18dp"
-                android:text="UPDATE"
-                android:layout_toRightOf="@id/deleteProduct"
-                android:id="@+id/updateProduct"
-                />
-        </LinearLayout>
+        android:layout_marginTop="115dp"
+        app:srcCompat="@drawable/default_photo" />
 
 </RelativeLayout>

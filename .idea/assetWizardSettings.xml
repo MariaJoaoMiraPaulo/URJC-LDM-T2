@@ -62,8 +62,8 @@
                                     <map>
                                       <entry key="assetType" value="IMAGE" />
                                       <entry key="iconShape" value="NONE" />
-                                      <entry key="imageAsset" value="$PROJECT_DIR$/app/src/main/res/drawable/add.png" />
-                                      <entry key="outputName" value="add_icon" />
+                                      <entry key="imageAsset" value="$PROJECT_DIR$/app/src/main/res/drawable/save.png" />
+                                      <entry key="outputName" value="save_icon" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -109,6 +109,11 @@
                 </map>
               </option>
             </PersistentState>
+          </value>
+        </entry>
+        <entry key="vectorWizard">
+          <value>
+            <PersistentState />
           </value>
         </entry>
       </map>

@@ -19,5 +19,7 @@
         <activity android:name=".ShoppingListActivity"></activity>
         <activity android:name=".ViewProductActivity"></activity>
     </application>
-
+    <uses-feature android:name="android.hardware.camera"
+        android:required="true" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 </manifest>

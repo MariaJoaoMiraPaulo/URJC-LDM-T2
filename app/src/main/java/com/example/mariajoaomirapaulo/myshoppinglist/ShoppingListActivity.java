@@ -8,6 +8,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.text.InputType;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
@@ -106,15 +107,24 @@ public class ShoppingListActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
                 String productName = adapterView.getItemAtPosition(position).toString(); // Gets the clicked item
 
-
                 Intent viewProductIntent = new Intent(ShoppingListActivity.this, ViewProductActivity.class);
                 Cursor product = databaseHelper.getProductId(productName);
                 int productId = -1;
                 while (product.moveToNext()) {
                     productId = product.getInt(0);
                 }
+
+                Cursor photo = databaseHelper.getProductPhoto(productName);
+                String productPhoto = "";
+
+                while (photo.moveToNext()) {
+                    productPhoto = photo.getString(0);
+                }
+
                 viewProductIntent.putExtra("id", productId);
                 viewProductIntent.putExtra("name", productName);
+                viewProductIntent.putExtra("photoPath", productPhoto);
+
                 startActivity(viewProductIntent);
 
             }

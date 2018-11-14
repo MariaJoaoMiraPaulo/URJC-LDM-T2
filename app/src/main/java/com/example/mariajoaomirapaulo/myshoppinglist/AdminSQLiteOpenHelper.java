@@ -16,7 +16,7 @@ public class AdminSQLiteOpenHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase database) {
-        database.execSQL("create table products(id integer primary key autoincrement, name text, description text, price real)");
+        database.execSQL("create table products(id integer primary key autoincrement, name text, photo text)");
     }
 
     @Override
@@ -28,6 +28,7 @@ public class AdminSQLiteOpenHelper extends SQLiteOpenHelper {
         SQLiteDatabase database = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put("name", product.getName());
+        contentValues.put("photo", product.getPhoto());
 
         long result = database.insert("products", null, contentValues);
 
@@ -51,8 +52,14 @@ public class AdminSQLiteOpenHelper extends SQLiteOpenHelper {
         Cursor product = database.rawQuery(query, null);
 
         return product;
+    }
 
+    public Cursor getProductPhoto(String productName){
+        SQLiteDatabase database = this.getWritableDatabase();
+        String query = "SELECT photo FROM products WHERE name = '" + productName + "'";
+        Cursor product = database.rawQuery(query, null);
 
+        return product;
     }
 
     public void updateProductName(String productName, int id, String newProductName) {
@@ -61,6 +68,13 @@ public class AdminSQLiteOpenHelper extends SQLiteOpenHelper {
                         + id + "' AND name = '" + productName + "'";
         database.execSQL(query);
 
+    }
+
+    public void updateProductPhoto(String productName, int id, String photoPath){
+        SQLiteDatabase database = this.getWritableDatabase();
+        String query = "UPDATE products SET photo = '" + photoPath + "' WHERE id = '"
+                + id + "' AND name = '" + productName + "'";
+        database.execSQL(query);
     }
 
     public void deleteProduct(String productName, int id) {
