@@ -42,5 +42,14 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        manual.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                soundPool.play(successSound, 1, 3, 1, 0, 0);
+                Intent intent = new Intent(MainActivity.this, UserManualActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 }

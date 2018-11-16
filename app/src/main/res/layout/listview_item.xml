@@ -27,6 +27,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="10"
+            android:backgroundTint="@color/colorPrimary"
+            android:buttonTint="@color/colorPrimary"
             android:padding="10dp"
             android:textColorLink="@color/colorLightGrey"
             android:textSize="20sp" />
