@@ -58,12 +58,27 @@
                             <entry key="launcherLegacy">
                               <value>
                                 <PersistentState>
+                                  <option name="children">
+                                    <map>
+                                      <entry key="image">
+                                        <value>
+                                          <PersistentState>
+                                            <option name="values">
+                                              <map>
+                                                <entry key="paddingPercent" value="5" />
+                                              </map>
+                                            </option>
+                                          </PersistentState>
+                                        </value>
+                                      </entry>
+                                    </map>
+                                  </option>
                                   <option name="values">
                                     <map>
                                       <entry key="assetType" value="IMAGE" />
                                       <entry key="iconShape" value="NONE" />
-                                      <entry key="imageAsset" value="$PROJECT_DIR$/app/src/main/res/drawable/save.png" />
-                                      <entry key="outputName" value="save_icon" />
+                                      <entry key="imageAsset" value="$USER_HOME$/Downloads/check (1).png" />
+                                      <entry key="outputName" value="conclude_icon" />
                                     </map>
                                   </option>
                                 </PersistentState>

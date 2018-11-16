@@ -3,6 +3,8 @@ package com.example.mariajoaomirapaulo.myshoppinglist;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.media.AudioManager;
+import android.media.SoundPool;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
@@ -32,6 +34,9 @@ public class ViewProductActivity extends AppCompatActivity{
     private String photoPath;
     private int productId;
 
+    SoundPool soundPool;
+    int trashSound;
+
     static final int CAPTURE_IMAGE_REQUEST = 1;
 
     @Override
@@ -44,7 +49,10 @@ public class ViewProductActivity extends AppCompatActivity{
         takePicture = (ImageButton) findViewById(R.id.takePicture);
         newProductName = (EditText) findViewById(R.id.newProductName);
         productPicture = (ImageView) findViewById(R.id.imageProduct);
-        databaseHelper = new AdminSQLiteOpenHelper(this, "products");
+        databaseHelper = new AdminSQLiteOpenHelper(this);
+
+        soundPool = new SoundPool(1, AudioManager.STREAM_MUSIC, 1);
+        trashSound = soundPool.load(this,R.raw.trash, 1);
 
         Intent receivedIntent = getIntent();
 
@@ -83,6 +91,7 @@ public class ViewProductActivity extends AppCompatActivity{
             public void onClick(View view) {
                 databaseHelper.deleteProduct(productName, productId);
                 toastHelper("Product deleted!");
+                soundPool.play(trashSound, 1, 3, 1, 0, 0);
                 Intent shoppingListIntent = new Intent(ViewProductActivity.this, ShoppingListActivity.class);
                 startActivity(shoppingListIntent);
             }

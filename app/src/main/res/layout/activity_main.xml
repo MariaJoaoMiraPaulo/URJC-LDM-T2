@@ -22,14 +22,14 @@
         tools:layout_editor_absoluteY="511dp" />
 
     <Button
-        android:id="@+id/historic"
+        android:id="@+id/history"
         android:layout_width="285dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="124dp"
         android:background="@android:color/white"
         android:bottomLeftRadius="50dp"
         android:bottomRightRadius="50dp"
-        android:text="HISTORIC"
+        android:text="HISTORY"
         android:textColor="#F97F51"
         android:textSize="17sp"
         android:textStyle="bold"
@@ -89,7 +89,7 @@
         android:layout_marginStart="72dp"
         android:layout_marginTop="53dp"
         app:layout_constraintBottom_toTopOf="@+id/shopping_list"
-        app:layout_constraintEnd_toEndOf="@+id/historic"
+        app:layout_constraintEnd_toEndOf="@+id/history"
         app:layout_constraintStart_toStartOf="@+id/guideline"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/cart" />

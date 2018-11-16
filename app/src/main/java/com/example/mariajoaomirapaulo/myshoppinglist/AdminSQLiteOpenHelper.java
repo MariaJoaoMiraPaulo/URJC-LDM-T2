@@ -10,13 +10,17 @@ import java.util.Optional;
 
 public class AdminSQLiteOpenHelper extends SQLiteOpenHelper {
 
-    public AdminSQLiteOpenHelper(Context context, String tableName) {
-        super(context, tableName, null, 1);
+    // Database Name
+    private static final String DATABASE_NAME = "myShoppingList";
+
+    public AdminSQLiteOpenHelper(Context context) {
+        super(context, DATABASE_NAME, null, 1);
     }
 
     @Override
     public void onCreate(SQLiteDatabase database) {
-        database.execSQL("create table products(id integer primary key autoincrement, name text, photo text)");
+        database.execSQL("CREATE TABLE products(id integer primary key autoincrement, name text, photo text)");
+        database.execSQL("CREATE TABLE history(id integer primary key autoincrement, products text)");
     }
 
     @Override
@@ -39,9 +43,30 @@ public class AdminSQLiteOpenHelper extends SQLiteOpenHelper {
         }
     }
 
+    public boolean addList(String products){
+        SQLiteDatabase database = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("products", products);
+
+        long result = database.insert("history", null, contentValues);
+
+        if (result == -1) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
     public Cursor getAllProducts() {
         SQLiteDatabase database = this.getWritableDatabase();
         String query = "SELECT * FROM products";
+        Cursor data = database.rawQuery(query, null);
+        return data;
+    }
+
+    public Cursor getAllLists(){
+        SQLiteDatabase database = this.getWritableDatabase();
+        String query = "SELECT * FROM history";
         Cursor data = database.rawQuery(query, null);
         return data;
     }
@@ -83,6 +108,17 @@ public class AdminSQLiteOpenHelper extends SQLiteOpenHelper {
                 + id + "' AND name = '" + productName + "'";
         database.execSQL(query);
 
+    }
+
+    public void createCurrentListTable(){
+        SQLiteDatabase database = this.getWritableDatabase();
+        database.execSQL("CREATE TABLE products(id integer primary key autoincrement, name text, photo text)");
+    }
+
+    public void dropCurrentListTable(){
+        SQLiteDatabase database = this.getWritableDatabase();
+        database.execSQL("DROP TABLE IF EXISTS 'products'");
+        createCurrentListTable();
     }
 
 }

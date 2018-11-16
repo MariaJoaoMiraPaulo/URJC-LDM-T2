@@ -18,6 +18,7 @@
         </activity>
         <activity android:name=".ShoppingListActivity"></activity>
         <activity android:name=".ViewProductActivity"></activity>
+        <activity android:name=".HistoryActivity"></activity>
     </application>
     <uses-feature android:name="android.hardware.camera"
         android:required="true" />
