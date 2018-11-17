@@ -1,16 +1,18 @@
 package com.example.mariajoaomirapaulo.myshoppinglist;
 
+import android.content.Context;
+import android.content.ContextWrapper;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.media.AudioManager;
 import android.media.SoundPool;
 import android.os.Bundle;
-import android.os.Environment;
+import android.os.StrictMode;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -18,11 +20,13 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
-public class ViewProductActivity extends AppCompatActivity{
+
+public class ViewProductActivity extends AppCompatActivity {
 
     private ImageButton deleteProduct, updateProduct, takePicture;
     private EditText newProductName;
@@ -31,7 +35,6 @@ public class ViewProductActivity extends AppCompatActivity{
     AdminSQLiteOpenHelper databaseHelper;
 
     private String productName;
-    private String photoPath;
     private int productId;
 
     SoundPool soundPool;
@@ -52,20 +55,20 @@ public class ViewProductActivity extends AppCompatActivity{
         databaseHelper = new AdminSQLiteOpenHelper(this);
 
         soundPool = new SoundPool(1, AudioManager.STREAM_MUSIC, 1);
-        trashSound = soundPool.load(this,R.raw.trash, 1);
+        trashSound = soundPool.load(this, R.raw.trash, 1);
 
         Intent receivedIntent = getIntent();
 
         productId = receivedIntent.getIntExtra("id", -1);
         productName = receivedIntent.getStringExtra("name");
-        photoPath = receivedIntent.getStringExtra("photoPath");
 
         newProductName.setText(productName);
 
-        if(!photoPath.equals("")){
-            Bitmap imageBitmap = BitmapFactory.decodeFile(photoPath);
-            productPicture.setImageBitmap(imageBitmap);
-        }
+
+        ContextWrapper cw = new ContextWrapper(getApplicationContext());
+        File directory = cw.getDir("imageDir", Context.MODE_PRIVATE);
+        loadImageFromStorage(directory.getAbsolutePath());
+
 
         updateProduct.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -76,12 +79,12 @@ public class ViewProductActivity extends AppCompatActivity{
                     toastHelper("The new product name can't be empty!");
                 } else {
                     databaseHelper.updateProductName(productName, productId, newName);
-                    toastHelper("Product name updated successfully!");
-                }
-
-                if(!photoPath.equals("")){
-                    databaseHelper.updateProductPhoto(productName,productId,photoPath);
-                    toastHelper("Product photo updated successfully!");
+                    if (productPicture.getDrawable() != null) {
+                        saveToInternalStorage(((BitmapDrawable) productPicture.getDrawable()).getBitmap());
+                        toastHelper("Product name and photo updated!");
+                    } else {
+                        toastHelper("Product name updated!");
+                    }
                 }
             }
         });
@@ -100,7 +103,9 @@ public class ViewProductActivity extends AppCompatActivity{
         takePicture.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-               captureImage();
+                StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
+                StrictMode.setVmPolicy(builder.build());
+                captureImage();
             }
         });
     }
@@ -109,37 +114,53 @@ public class ViewProductActivity extends AppCompatActivity{
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         if (requestCode == CAPTURE_IMAGE_REQUEST && resultCode == RESULT_OK) {
             Bundle extras = data.getExtras();
-            Bitmap imageBitmap = (Bitmap) extras.get("data");
-            productPicture.setImageBitmap(imageBitmap);
-            try {
-                createImageFile();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-    }
+            Bitmap imgBitmap = (Bitmap) extras.get("data");
+            productPicture.setImageBitmap(imgBitmap);
 
-    public void createImageFile() throws IOException {
-
-        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-        String imageFileName = "JPEG_" + timeStamp + "_";
-        File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
-        File image = File.createTempFile(imageFileName, ".jpg", storageDir);
-
-        photoPath = image.getAbsolutePath();
-    }
-
-
-    public void captureImage(){
-        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
-            startActivityForResult(takePictureIntent, CAPTURE_IMAGE_REQUEST);
         }
     }
 
 
     private void toastHelper(String message) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+    }
+
+    private String saveToInternalStorage(Bitmap bitmapImage) {
+        ContextWrapper cw = new ContextWrapper(getApplicationContext());
+        File directory = cw.getDir("imageDir", Context.MODE_PRIVATE);
+        File myPath = new File(directory, productName + ".jpg");
+
+        FileOutputStream fos = null;
+        try {
+            fos = new FileOutputStream(myPath);
+            bitmapImage.compress(Bitmap.CompressFormat.PNG, 100, fos);
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                fos.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return directory.getAbsolutePath();
+    }
+
+    private void loadImageFromStorage(String path) {
+        try {
+            File f = new File(path, productName + ".jpg");
+            Bitmap b = BitmapFactory.decodeStream(new FileInputStream(f));
+            productPicture.setImageBitmap(b);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void captureImage() {
+        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+            startActivityForResult(takePictureIntent, CAPTURE_IMAGE_REQUEST);
+        }
     }
 
 }

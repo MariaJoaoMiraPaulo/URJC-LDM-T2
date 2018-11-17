@@ -6,8 +6,6 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import java.util.Optional;
-
 public class AdminSQLiteOpenHelper extends SQLiteOpenHelper {
 
     // Database Name
@@ -19,7 +17,7 @@ public class AdminSQLiteOpenHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase database) {
-        database.execSQL("CREATE TABLE products(id integer primary key autoincrement, name text, photo text)");
+        database.execSQL("CREATE TABLE products(id integer primary key autoincrement, name text, photo BLOB)");
         database.execSQL("CREATE TABLE history(id integer primary key autoincrement, products text)");
     }
 
@@ -29,6 +27,7 @@ public class AdminSQLiteOpenHelper extends SQLiteOpenHelper {
     }
 
     public boolean addProduct(ProductItem product) {
+
         SQLiteDatabase database = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put("name", product.getName());
@@ -43,7 +42,7 @@ public class AdminSQLiteOpenHelper extends SQLiteOpenHelper {
         }
     }
 
-    public boolean addList(String products){
+    public boolean addList(String products) {
         SQLiteDatabase database = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put("products", products);
@@ -64,7 +63,7 @@ public class AdminSQLiteOpenHelper extends SQLiteOpenHelper {
         return data;
     }
 
-    public Cursor getAllLists(){
+    public Cursor getAllLists() {
         SQLiteDatabase database = this.getWritableDatabase();
         String query = "SELECT * FROM history";
         Cursor data = database.rawQuery(query, null);
@@ -79,27 +78,12 @@ public class AdminSQLiteOpenHelper extends SQLiteOpenHelper {
         return product;
     }
 
-    public Cursor getProductPhoto(String productName){
-        SQLiteDatabase database = this.getWritableDatabase();
-        String query = "SELECT photo FROM products WHERE name = '" + productName + "'";
-        Cursor product = database.rawQuery(query, null);
-
-        return product;
-    }
-
     public void updateProductName(String productName, int id, String newProductName) {
         SQLiteDatabase database = this.getWritableDatabase();
         String query = "UPDATE products SET name = '" + newProductName + "' WHERE id = '"
-                        + id + "' AND name = '" + productName + "'";
-        database.execSQL(query);
-
-    }
-
-    public void updateProductPhoto(String productName, int id, String photoPath){
-        SQLiteDatabase database = this.getWritableDatabase();
-        String query = "UPDATE products SET photo = '" + photoPath + "' WHERE id = '"
                 + id + "' AND name = '" + productName + "'";
         database.execSQL(query);
+
     }
 
     public void deleteProduct(String productName, int id) {
@@ -110,12 +94,12 @@ public class AdminSQLiteOpenHelper extends SQLiteOpenHelper {
 
     }
 
-    public void createCurrentListTable(){
+    public void createCurrentListTable() {
         SQLiteDatabase database = this.getWritableDatabase();
         database.execSQL("CREATE TABLE products(id integer primary key autoincrement, name text, photo text)");
     }
 
-    public void dropCurrentListTable(){
+    public void dropCurrentListTable() {
         SQLiteDatabase database = this.getWritableDatabase();
         database.execSQL("DROP TABLE IF EXISTS 'products'");
         createCurrentListTable();

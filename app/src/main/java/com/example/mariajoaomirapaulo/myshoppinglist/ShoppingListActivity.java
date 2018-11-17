@@ -10,7 +10,6 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.text.InputType;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
@@ -38,11 +37,11 @@ public class ShoppingListActivity extends AppCompatActivity {
         databaseHelper = new AdminSQLiteOpenHelper(this);
 
         soundPool = new SoundPool(1, AudioManager.STREAM_MUSIC, 1);
-        successSound = soundPool.load(this,R.raw.success, 1);
+        successSound = soundPool.load(this, R.raw.success, 1);
 
         ImageButton addProduct = (ImageButton) findViewById(R.id.addIcon);
         listProducts = (ListView) findViewById(R.id.listProducts);
-        ImageButton concludeList= (ImageButton) findViewById(R.id.conclude);
+        ImageButton concludeList = (ImageButton) findViewById(R.id.conclude);
 
         populateProductList();
 
@@ -58,7 +57,7 @@ public class ShoppingListActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 soundPool.play(successSound, 1, 3, 1, 0, 0);
-                if(productAdapter.getCount()>0)
+                if (productAdapter.getCount() > 0)
                     concludeProductsList();
             }
         });
@@ -97,12 +96,12 @@ public class ShoppingListActivity extends AppCompatActivity {
         builder.show();
     }
 
-    public void concludeProductsList(){
+    public void concludeProductsList() {
 
         String products = "";
         ArrayList<String> productsList = getProducts();
 
-        for (String product: productsList){
+        for (String product : productsList) {
             products += product + ",";
         }
 
@@ -125,7 +124,7 @@ public class ShoppingListActivity extends AppCompatActivity {
 
     }
 
-    public ArrayList<String> getProducts(){
+    public ArrayList<String> getProducts() {
         Cursor allProducts = databaseHelper.getAllProducts();
         ArrayList<String> productsList = new ArrayList<>();
 
@@ -158,16 +157,8 @@ public class ShoppingListActivity extends AppCompatActivity {
                     productId = product.getInt(0);
                 }
 
-                Cursor photo = databaseHelper.getProductPhoto(productName);
-                String productPhoto = "";
-
-                while (photo.moveToNext()) {
-                    productPhoto = photo.getString(0);
-                }
-
                 viewProductIntent.putExtra("id", productId);
                 viewProductIntent.putExtra("name", productName);
-                viewProductIntent.putExtra("photoPath", productPhoto);
 
                 startActivity(viewProductIntent);
 
