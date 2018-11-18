@@ -1,3 +1,25 @@
 <resources>
     <string name="app_name">My Shopping List</string>
+    <string name="history">HISTORY</string>
+    <string name="manual">MANUAL</string>
+    <string name="my_shopping_list">My Shopping List</string>
+    <string name="your_shopping_lists">Your shopping lists</string>
+    <string name="todo">TODO</string>
+    <string name="conclude_shopping_list">Conclude shopping list.</string>
+    <string name="add_product_to_the_shooping_list">Add product to the shooping list.</string>
+    <string name="application_image">Application image.</string>
+    <string name="user_manual">User Manual</string>
+    <string name="add_a_new_item">Add a new item</string>
+    <string name="conclude_list">Conclude list</string>
+    <string name="item">Item:</string>
+    <string name="capture_product_photo">Capture product photo</string>
+    <string name="update_product">Update Product</string>
+    <string name="add_item_icon">Add item icon.</string>
+    <string name="conclude_list_icon">Conclude list icon</string>
+    <string name="capture_photo_icon">Capture photo icon</string>
+    <string name="update_product_values_icon">Update product values icon</string>
+    <string name="your_past_list_items">Your past list items</string>
+    <string name="delete_product_icon">Delete product icon</string>
+    <string name="product_photo_preview">Product photo preview</string>
+    <string name="new_product_name">New Product name</string>
 </resources>

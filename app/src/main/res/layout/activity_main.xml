@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#f97f51"
+    android:background="@color/colorPrimary"
     tools:context=".MainActivity">
 
     <android.support.constraint.Guideline
@@ -29,8 +30,8 @@
         android:background="@android:color/white"
         android:bottomLeftRadius="50dp"
         android:bottomRightRadius="50dp"
-        android:text="HISTORY"
-        android:textColor="#F97F51"
+        android:text="@string/history"
+        android:textColor="@color/colorPrimary"
         android:textSize="17sp"
         android:textStyle="bold"
         android:topLeftRadius="50dp"
@@ -49,8 +50,8 @@
         android:background="@android:color/white"
         android:bottomLeftRadius="50dp"
         android:bottomRightRadius="50dp"
-        android:text="Manual"
-        android:textColor="#F97F51"
+        android:text="@string/manual"
+        android:textColor="@color/colorPrimary"
         android:textSize="17sp"
         android:textStyle="bold"
         android:topLeftRadius="50dp"
@@ -67,8 +68,8 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="183dp"
         android:background="#ffffff"
-        android:text="My Shopping List"
-        android:textColor="#F97F51"
+        android:text="@string/my_shopping_list"
+        android:textColor="@color/colorPrimary"
         android:textSize="17sp"
         android:textStyle="bold"
         android:typeface="sans"
@@ -92,6 +93,7 @@
         app:layout_constraintEnd_toEndOf="@+id/history"
         app:layout_constraintStart_toStartOf="@+id/guideline"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/cart" />
+        app:srcCompat="@drawable/cart"
+        android:contentDescription="@string/application_image" />
 
 </android.support.constraint.ConstraintLayout>

@@ -14,21 +14,31 @@ import android.widget.ListView;
 
 import java.util.ArrayList;
 
+/**
+ * The history activity class where you can see your past shopping lists.
+ */
 public class HistoryActivity extends AppCompatActivity {
 
     AdminSQLiteOpenHelper databaseHelper;
-    ListView listView;
-    SoundPool soundPool;
+    ListView productsList;
 
+    // The sound pool and the success sound.
+    SoundPool soundPool;
     int successSound;
 
+    /**
+     * On create method.
+     * Populates the history list adapter.
+     *
+     * @param savedInstanceState saved instance state
+     */
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.history);
 
         databaseHelper = new AdminSQLiteOpenHelper(this);
-        listView = (ListView) findViewById(R.id.listProducts);
+        productsList = (ListView) findViewById(R.id.listProducts);
 
         soundPool = new SoundPool(1, AudioManager.STREAM_MUSIC, 1);
         successSound = soundPool.load(this, R.raw.success, 1);
@@ -36,33 +46,43 @@ public class HistoryActivity extends AppCompatActivity {
         populateList();
     }
 
-    public ArrayList<String> getProducts() {
-        Cursor allProducts = databaseHelper.getAllLists();
-        ArrayList<String> productsList = new ArrayList<>();
-        if (allProducts.moveToFirst()) {
+    /**
+     * Gets all the past shopping lists.
+     *
+     * @return past shopping lists
+     */
+    public ArrayList<String> getHistoryList() {
+        Cursor cursor = databaseHelper.getAllLists();
+        ArrayList<String> historyList = new ArrayList<>();
+        if (cursor.moveToFirst()) {
 
             do {
-                productsList.add(allProducts.getString(2));
+                historyList.add(cursor.getString(2));
 
-            } while (allProducts.moveToNext());
+            } while (cursor.moveToNext());
         }
 
-        return productsList;
+        return historyList;
     }
 
-    public void populateList(){
+    /**
+     * Populates the adapter with the past shopping lists.
+     * Listens for a click on each single item of the list to launch a single past shopping list intent.
+     */
+    public void populateList() {
 
-        ArrayList<String> productsList = getProducts();
+        ArrayList<String> historyList = getHistoryList();
 
         //createAdapter
-        final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, productsList);
-        listView.setAdapter(arrayAdapter);
+        final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, historyList);
+        productsList.setAdapter(arrayAdapter);
 
         //on item click listener
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        productsList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
 
+                // Play the success sound from the sound pool
                 soundPool.play(successSound, 1, 3, 1, 0, 0);
                 String historyListId = adapterView.getItemAtPosition(position).toString(); // Gets the clicked item
 
@@ -71,10 +91,8 @@ public class HistoryActivity extends AppCompatActivity {
 
                 String products = null;
                 if (cursor.moveToFirst()) {
-
                     do {
                         products = cursor.getString(1);
-
                     } while (cursor.moveToNext());
                 }
                 viewHistoryIntent.putExtra("products", products);

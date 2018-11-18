@@ -3,16 +3,25 @@ package com.example.mariajoaomirapaulo.myshoppinglist;
 import android.content.Intent;
 import android.media.AudioManager;
 import android.media.SoundPool;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 
+/**
+ * The main activity class.
+ * Where the user can navigate to the most important screens.
+ */
 public class MainActivity extends AppCompatActivity {
 
     SoundPool soundPool;
     int successSound;
 
+    /**
+     * Creates the listeners for all the buttons.
+     *
+     * @param savedInstanceState the saved instance state
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -23,8 +32,9 @@ public class MainActivity extends AppCompatActivity {
         Button history = (Button) findViewById(R.id.history);
 
         soundPool = new SoundPool(1, AudioManager.STREAM_MUSIC, 1);
-        successSound = soundPool.load(this,R.raw.success, 1);
+        successSound = soundPool.load(this, R.raw.success, 1);
 
+        // Go to the current shopping list page
         shoppingList.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -34,6 +44,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        // Go to the past shopping lists page
         history.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -43,6 +54,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        // Go to the manual page
         manual.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

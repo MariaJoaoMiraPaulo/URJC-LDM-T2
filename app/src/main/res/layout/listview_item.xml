@@ -16,7 +16,6 @@
             android:layout_height="wrap_content"
             android:layout_weight="90"
             android:padding="10dp"
-            android:text="TextView"
             android:textSize="20sp"
             android:focusableInTouchMode="false"
             android:clickable="false"

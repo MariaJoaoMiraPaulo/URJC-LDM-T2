@@ -26,6 +26,9 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 
 
+/**
+ * View product activity class
+ */
 public class ViewProductActivity extends AppCompatActivity {
 
     private ImageButton deleteProduct, updateProduct, takePicture;
@@ -42,6 +45,11 @@ public class ViewProductActivity extends AppCompatActivity {
 
     static final int CAPTURE_IMAGE_REQUEST = 1;
 
+    /**
+     * Creates the listeners for deleting the product, editing and taking picture.
+     *
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -110,6 +118,13 @@ public class ViewProductActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * On activity result after taking a picture sets the image in the image view.
+     *
+     * @param requestCode the request code received
+     * @param resultCode  the result code received
+     * @param data        the data received
+     */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         if (requestCode == CAPTURE_IMAGE_REQUEST && resultCode == RESULT_OK) {
@@ -121,10 +136,21 @@ public class ViewProductActivity extends AppCompatActivity {
     }
 
 
+    /**
+     * Toast helper do show message.
+     *
+     * @param message the message
+     */
     private void toastHelper(String message) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
 
+    /**
+     * Saves an image to the internal storage of the mobile phone.
+     *
+     * @param bitmapImage the image as bitmap
+     * @return the path where the picture was saved
+     */
     private String saveToInternalStorage(Bitmap bitmapImage) {
         ContextWrapper cw = new ContextWrapper(getApplicationContext());
         File directory = cw.getDir("imageDir", Context.MODE_PRIVATE);
@@ -146,6 +172,11 @@ public class ViewProductActivity extends AppCompatActivity {
         return directory.getAbsolutePath();
     }
 
+    /**
+     * Loads the image from the internal storage.
+     *
+     * @param path the image path
+     */
     private void loadImageFromStorage(String path) {
         try {
             File f = new File(path, productName + ".jpg");
@@ -156,6 +187,9 @@ public class ViewProductActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Opens the camera to take a picture
+     */
     public void captureImage() {
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         if (takePictureIntent.resolveActivity(getPackageManager()) != null) {

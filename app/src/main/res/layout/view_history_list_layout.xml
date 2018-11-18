@@ -23,7 +23,7 @@
             android:layout_height="128dp"
             android:layout_weight="20"
             android:padding="20dp"
-            android:text="Your past list items"
+            android:text="@string/your_past_list_items"
             android:textSize="20sp"
             android:textStyle="bold" />
 

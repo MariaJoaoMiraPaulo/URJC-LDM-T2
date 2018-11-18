@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -25,7 +24,7 @@
             <Space
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="300dp" />
+                android:layout_marginStart="300dp" />
 
             <ImageButton
                 android:id="@+id/conclude"
@@ -33,6 +32,7 @@
                 android:layout_height="60dp"
                 android:layout_weight="20"
                 android:background="@android:color/transparent"
+                android:contentDescription="@string/conclude_shopping_list"
                 android:textAlignment="textEnd"
                 app:srcCompat="@mipmap/conclude_icon" />
         </TableRow>
@@ -51,6 +51,7 @@
             android:layout_marginBottom="25dp"
             android:layout_weight="20"
             android:background="@android:color/transparent"
+            android:contentDescription="@string/add_product_to_the_shooping_list"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"

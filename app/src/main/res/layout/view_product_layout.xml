@@ -2,7 +2,6 @@
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:orientation="vertical"
     android:layout_height="match_parent">
@@ -16,10 +15,11 @@
         android:layout_marginBottom="218dp"
         android:backgroundTint="@color/colorPrimary"
         android:ems="10"
+        android:hint="@string/new_product_name"
         android:inputType="textPersonName"
         android:textAlignment="center"
         android:textColorLink="@color/colorPrimary"
-        android:textCursorDrawable="@color/colorPrimary" />
+        android:textCursorDrawable="@color/colorPrimary"/>
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -35,7 +35,8 @@
             android:layout_height="60dp"
             android:layout_weight="1"
             android:background="@android:color/transparent"
-            app:srcCompat="@mipmap/camara_icon" />
+            app:srcCompat="@mipmap/camara_icon"
+            android:contentDescription="@string/capture_photo_icon" />
 
         <ImageButton
             android:id="@+id/updateProduct"
@@ -43,19 +44,22 @@
             android:layout_height="60dp"
             android:layout_weight="1"
             android:background="@android:color/transparent"
-            app:srcCompat="@mipmap/save_icon" />
+            app:srcCompat="@mipmap/save_icon"
+            android:contentDescription="@string/update_product_values_icon" />
     </LinearLayout>
 
     <ImageButton
         android:id="@+id/deleteProduct"
         android:layout_width="44dp"
+        android:layout_toEndOf="@id/newProductName"
         android:layout_height="43dp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
         android:layout_marginBottom="26dp"
         android:layout_marginEnd="26dp"
         android:background="@android:color/transparent"
-        app:srcCompat="@mipmap/trash_icon" />
+        app:srcCompat="@mipmap/trash_icon"
+        android:contentDescription="@string/delete_product_icon" />
 
     <ImageView
         android:id="@+id/imageProduct"
@@ -64,6 +68,7 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="115dp"
-        app:srcCompat="@drawable/default_photo" />
+        app:srcCompat="@drawable/default_photo"
+        android:contentDescription="@string/product_photo_preview" />
 
 </RelativeLayout>

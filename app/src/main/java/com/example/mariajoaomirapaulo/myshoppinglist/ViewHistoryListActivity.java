@@ -10,13 +10,15 @@ import android.widget.ListView;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * The view history list activity class.
+ */
 public class ViewHistoryListActivity extends AppCompatActivity {
 
     AdminSQLiteOpenHelper databaseHelper;
 
     ListView listProducts;
     String historyProducts;
-
 
 
     @Override
@@ -33,10 +35,12 @@ public class ViewHistoryListActivity extends AppCompatActivity {
         historyProducts = receivedIntent.getStringExtra("products");
 
 
-
         populateProductList();
     }
 
+    /**
+     * Populates the adapter with the products existent on the received shopping list.
+     */
     public void populateProductList() {
 
         List<String> items = Arrays.asList(historyProducts.split("\\s*,\\s*"));

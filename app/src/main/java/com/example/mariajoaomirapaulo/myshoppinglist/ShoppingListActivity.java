@@ -19,6 +19,9 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
+/**
+ * The shopping list activity calss.
+ */
 public class ShoppingListActivity extends AppCompatActivity {
 
     AdminSQLiteOpenHelper databaseHelper;
@@ -28,6 +31,11 @@ public class ShoppingListActivity extends AppCompatActivity {
 
     int successSound;
 
+    /**
+     * Creates the listeners for the add button and conclude list buttons.
+     *
+     * @param savedInstanceState the saved instance state
+     */
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,6 +72,9 @@ public class ShoppingListActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * Opens the dialog for the user to enter the new product name.
+     */
     public void openDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("New Product");
@@ -96,6 +107,9 @@ public class ShoppingListActivity extends AppCompatActivity {
         builder.show();
     }
 
+    /**
+     * Concludes the shopping list, removes the products and adds the list to the history of shopping lists.
+     */
     public void concludeProductsList() {
 
         String products = "";
@@ -112,6 +126,11 @@ public class ShoppingListActivity extends AppCompatActivity {
         populateProductList();
     }
 
+    /**
+     * Adds a products to the current shopping list.
+     *
+     * @param product the product
+     */
     public void addProduct(ProductItem product) {
         boolean addProduct = databaseHelper.addProduct(product);
 
@@ -124,6 +143,11 @@ public class ShoppingListActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * Gets all the existent products to add to the product lists
+     *
+     * @return the product list
+     */
     public ArrayList<String> getProducts() {
         Cursor allProducts = databaseHelper.getAllProducts();
         ArrayList<String> productsList = new ArrayList<>();
@@ -135,6 +159,9 @@ public class ShoppingListActivity extends AppCompatActivity {
         return productsList;
     }
 
+    /**
+     * Populates the product list adapter with all the products.
+     */
     public void populateProductList() {
 
         ArrayList<String> productsList = getProducts();
@@ -167,10 +194,18 @@ public class ShoppingListActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * Toast healper to display message.
+     *
+     * @param message the message
+     */
     private void toastHelper(String message) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
 
+    /**
+     * On activity resume, update the product list.
+     */
     @Override
     protected void onResume() {
         super.onResume();
