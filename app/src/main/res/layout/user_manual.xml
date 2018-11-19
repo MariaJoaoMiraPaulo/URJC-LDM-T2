@@ -15,14 +15,10 @@
         android:layout_height="wrap_content"
         android:padding="10dp"
         android:text="@string/user_manual"
-        android:textSize="23sp" />
-
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="10dp"
-        android:text="@string/my_shopping_list" />
+        android:textAlignment="center"
+        android:textSize="23sp"
+        android:textStyle="bold"
+        android:typeface="sans" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -30,118 +26,98 @@
         android:orientation="vertical"
         android:padding="10dp">
 
-        <LinearLayout
+
+        <TextView
+            android:id="@+id/textView9"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:padding="5dp">
+            android:padding="10dp"
+            android:text='1. Go to "My shopping list".'
+            android:typeface="sans" />
 
-            <ImageView
-                android:id="@+id/imageView"
-                android:layout_width="206dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:contentDescription="@string/add_item_icon"
-                app:srcCompat="@mipmap/add_icon" />
-
-            <TextView
-                android:id="@+id/textView3"
-                android:layout_width="417dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:padding="10dp"
-                android:text="@string/add_a_new_item"
-                android:textSize="20sp" />
-
-        </LinearLayout>
-
-        <LinearLayout
+        <TextView
+            android:id="@+id/textView8"
             android:layout_width="match_parent"
-            android:layout_height="76dp"
-            android:orientation="horizontal"
-            android:padding="5dp">
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:text="2. Add a new item. "
+            android:typeface="sans" />
 
-            <ImageView
-                android:id="@+id/concludeListIocn"
-                android:layout_width="79dp"
-                android:layout_height="55dp"
-                android:layout_weight="1"
-                android:contentDescription="@string/conclude_list_icon"
-                app:srcCompat="@mipmap/conclude_icon" />
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="50dp"
+            android:layout_height="32dp"
+            android:layout_marginLeft="20dp"
+            app:srcCompat="@mipmap/add_icon" />
 
-            <TextView
-                android:id="@+id/concludeListText"
-                android:layout_width="290dp"
-                android:layout_height="57dp"
-                android:layout_weight="1"
-                android:padding="10dp"
-                android:text="@string/conclude_list"
-                android:textSize="20sp" />
-        </LinearLayout>
-
+        <TextView
+            android:id="@+id/textView7"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:text="3. Click on a list item."
+            android:typeface="sans" />
 
         <TextView
             android:id="@+id/textView5"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="10dp"
-            android:text="@string/item" />
+            android:text="4. Update the item's name."
+            android:typeface="sans" />
 
-        <LinearLayout
+        <TextView
+            android:id="@+id/textView4"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:padding="10dp">
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:text="5. Capture a photo."
+            android:typeface="sans" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:padding="10dp">
+        <ImageView
+            android:id="@+id/imageView3"
+            android:layout_width="49dp"
+            android:layout_height="39dp"
+            android:layout_marginLeft="20dp"
+            app:srcCompat="@mipmap/camara_icon" />
 
-                <ImageView
-                    android:id="@+id/capturePhotoIcon"
-                    android:layout_width="190dp"
-                    android:layout_height="50dp"
-                    android:layout_weight="1"
-                    android:contentDescription="@string/capture_photo_icon"
-                    app:srcCompat="@drawable/camara" />
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:text="6. Save changes."
+            android:typeface="sans" />
 
-                <TextView
-                    android:id="@+id/capturePhotoText"
-                    android:layout_width="417dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:padding="10dp"
-                    android:text="@string/capture_product_photo"
-                    android:textSize="20sp" />
+        <ImageView
+            android:id="@+id/imageView4"
+            android:layout_width="51dp"
+            android:layout_height="39dp"
+            android:layout_marginLeft="20dp"
+            app:srcCompat="@mipmap/save_icon" />
 
-            </LinearLayout>
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:text="7. Conclude your list whenever you want and start a new one."
+            android:typeface="sans" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:padding="10dp">
+        <ImageView
+            android:id="@+id/imageView5"
+            android:layout_width="54dp"
+            android:layout_height="35dp"
+            android:layout_marginLeft="20dp"
+            app:srcCompat="@mipmap/conclude_icon" />
 
-                <ImageView
-                    android:id="@+id/updateProductIcon"
-                    android:layout_width="60dp"
-                    android:layout_height="55dp"
-                    android:layout_weight="1"
-                    android:contentDescription="@string/update_product_values_icon"
-                    app:srcCompat="@drawable/save" />
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="match_parent"
+            android:layout_height="75dp"
+            android:padding="10dp"
+            android:text='8. Go to "History" if you want to check your past shopping lists.'
+            android:typeface="sans" />
 
-                <TextView
-                    android:id="@+id/updateProductText"
-                    android:layout_width="290dp"
-                    android:layout_height="57dp"
-                    android:layout_weight="1"
-                    android:padding="10dp"
-                    android:text="@string/update_product"
-                    android:textSize="20sp" />
-            </LinearLayout>
-
-        </LinearLayout>
     </LinearLayout>
 </LinearLayout>
