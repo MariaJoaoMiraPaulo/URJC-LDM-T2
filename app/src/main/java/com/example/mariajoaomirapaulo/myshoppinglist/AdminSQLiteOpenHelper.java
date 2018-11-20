@@ -79,6 +79,25 @@ public class AdminSQLiteOpenHelper extends SQLiteOpenHelper {
     }
 
     /**
+     * Checks if there is a product on the list with the same name.
+     *
+     * @param productName the product name
+     * @return if there is or not
+     */
+    public boolean productWithSameName(String productName) {
+        SQLiteDatabase database = this.getWritableDatabase();
+        String query = "SELECT * FROM products WHERE name = '" + productName + "'";
+        Cursor product = database.rawQuery(query, null);
+
+        // If there is no product with the same name
+        if (product.getCount() == 0) {
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
      * Inserts a new shopping list to the history table, with the products
      * comma separated and the date when the shopping list was concluded
      *

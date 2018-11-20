@@ -90,9 +90,14 @@ public class ShoppingListActivity extends AppCompatActivity {
                 if (productName.length() == 0) {
                     toastHelper("You must specify the product name!");
                 } else {
-                    ProductItem product = new ProductItem(productName);
-                    addProduct(product);
-                    soundPool.play(successSound, 1, 3, 1, 0, 0);
+
+                    if (databaseHelper.productWithSameName(productName)) {
+                        toastHelper("You can't have two products with the same name!");
+                    } else {
+                        ProductItem product = new ProductItem(productName);
+                        addProduct(product);
+                        soundPool.play(successSound, 1, 3, 1, 0, 0);
+                    }
                 }
             }
         });
