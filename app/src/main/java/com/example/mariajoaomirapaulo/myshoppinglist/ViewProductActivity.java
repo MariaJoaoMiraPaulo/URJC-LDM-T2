@@ -55,6 +55,11 @@ public class ViewProductActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.view_product_layout);
 
+        // Changed action bar image
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setLogo(R.drawable.ic_action_bar);
+        getSupportActionBar().setDisplayUseLogoEnabled(true);
+
         updateProduct = (ImageButton) findViewById(R.id.updateProduct);
         deleteProduct = (ImageButton) findViewById(R.id.deleteProduct);
         takePicture = (ImageButton) findViewById(R.id.takePicture);

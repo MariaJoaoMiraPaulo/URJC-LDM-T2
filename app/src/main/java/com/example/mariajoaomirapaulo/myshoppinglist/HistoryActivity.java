@@ -37,6 +37,11 @@ public class HistoryActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.history);
 
+        // Changed action bar image
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setLogo(R.drawable.ic_action_bar);
+        getSupportActionBar().setDisplayUseLogoEnabled(true);
+
         databaseHelper = new AdminSQLiteOpenHelper(this);
         productsList = (ListView) findViewById(R.id.listProducts);
 

@@ -42,6 +42,11 @@ public class ShoppingListActivity extends AppCompatActivity {
 
         setContentView(R.layout.shopping_list);
 
+        // Changed action bar image
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setLogo(R.drawable.ic_action_bar);
+        getSupportActionBar().setDisplayUseLogoEnabled(true);
+
         databaseHelper = new AdminSQLiteOpenHelper(this);
 
         soundPool = new SoundPool(1, AudioManager.STREAM_MUSIC, 1);

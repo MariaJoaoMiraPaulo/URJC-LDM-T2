@@ -12,5 +12,10 @@ public class UserManualActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.user_manual);
+
+        // Changed action bar image
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setLogo(R.drawable.ic_action_bar);
+        getSupportActionBar().setDisplayUseLogoEnabled(true);
     }
 }
